@@ -116,71 +116,13 @@ p {
     padding: 0 var(--container-padding);
 }
 
-.text-center {
-    text-align: center;
-}
-
-.text-primary {
-    color: var(--primary);
-}
-
-.text-secondary {
-    color: var(--secondary);
-}
-
-.bg-light {
-    background-color: var(--light-gray);
-}
+.text-center { text-align: center; }
+.text-primary { color: var(--primary); }
+.text-secondary { color: var(--secondary); }
+.bg-light { background-color: var(--light-gray); }
 
 .section {
     padding: var(--spacing-xl) 0;
-}
-
-/* --- ANIMAÇÕES --- */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-fade-in {
-    animation: fadeIn 0.6s ease forwards;
-}
-
-/* --- CLASSES UTILITÁRIAS --- */
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 30px;
-}
-
-.section {
-    padding: 80px 0;
-}
-
-.section-light {
-    background-color: var(--light-color);
-}
-
-.cta-button {
-    display: inline-block;
-    padding: 12px 28px;
-    background-color: var(--primary-color);
-    color: var(--white-color);
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease;
-}
-
-.cta-button:hover {
-    background-color: #006666; /* Um tom mais escuro para o hover */
 }
 
 /* --- HEADER --- */
@@ -224,11 +166,6 @@ p {
     align-items: center;
 }
 
-.nav-list {
-    display: flex;
-    gap: 25px; /* Espaçamento entre os itens do menu */
-}
-
 .nav-list a {
     font-size: var(--text-base);
     font-weight: 500;
@@ -261,6 +198,131 @@ p {
     margin: 6px 0;
     transition: var(--transition);
     border-radius: 2px;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('../images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    padding: var(--spacing-xl) 0;
+    margin-top: 60px;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero .pre-title {
+    font-size: var(--h3);
+    color: var(--secondary);
+    font-weight: 300;
+    margin-bottom: var(--spacing-xs);
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards 0.3s;
+}
+
+.hero h1 {
+    font-size: var(--h1);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards 0.6s;
+}
+
+.hero .instructors {
+    font-size: var(--h4);
+    color: var(--secondary);
+    margin-bottom: var(--spacing-md);
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards 0.9s;
+}
+
+.hero-description {
+    margin: var(--spacing-lg) 0;
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards 1.2s;
+}
+
+.hero-description h3 {
+    font-size: var(--h4);
+    font-weight: 300;
+    margin-bottom: var(--spacing-xs);
+}
+
+.hero-description h2 {
+    font-size: var(--h2);
+    color: var(--secondary);
+    line-height: 1.4;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background-color: var(--primary);
+    color: var(--white);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards 1.5s;
+    transition: var(--transition);
+}
+
+.cta-button:hover {
+    background-color: var(--secondary);
+    transform: translateY(-2px);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: var(--spacing-md);
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--white);
+    font-size: var(--h4);
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards 2s;
+}
+
+.scroll-indicator i {
+    animation: bounce 2s infinite;
+}
+
+/* --- ANIMAÇÕES --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
 }
 
 /* --- RESPONSIVO --- */
@@ -323,184 +385,13 @@ p {
         text-align: center;
         padding: var(--spacing-sm);
     }
-}
 
-/* Animações */
-.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: var(--transition);
-}
+    .hero {
+        margin-top: 0;
+        background-attachment: scroll;
+    }
 
-.animate-on-scroll.animate {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Header scroll behavior */
-.header {
-    transition: var(--transition);
-}
-
-.header.scroll-down {
-    transform: translateY(-100%);
-}
-
-.header.scroll-up {
-    transform: translateY(0);
-    box-shadow: var(--shadow);
-}
-
-/* --- HERO SECTION --- */
-.hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 80vh; /* Ocupa 80% da altura da tela */
-    color: var(--white-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 20px;
-}
-
-.hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 15px;
-}
-
-/* --- HERO SECTION --- */
-.hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 80vh; /* Ocupa 80% da altura da tela */
-    color: var(--white-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 20px;
-}
-
-.hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 15px;
-}
-
-.hero p {
-    font-size: 1.5rem;
-    max-width: 600px;
-    margin-bottom: 30px;
-}
-
-/* --- SEÇÃO FORMAÇÃO --- */
-#formacao .container {
-    max-width: 800px; /* Limita a largura para melhor leitura */
-    text-align: center;
-}
-
-.section-title {
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    text-align: center;
-}
-
-.formation-content p {
-    margin-bottom: 20px;
-    font-size: 1.1rem;
-}
-
-.formation-content h3 {
-    font-size: 1.5rem;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    color: var(--primary-color);
-}
-
-.features-list {
-    list-style: none;
-    padding: 0;
-    text-align: left;
-    margin-top: 20px;
-}
-
-.features-list li {
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-}
-
-.features-list strong {
-    color: var(--dark-color);
-}
-
-/* --- SEÇÃO PARA QUEM --- */
-#para-quem .container {
-    max-width: 800px;
-    text-align: center;
-}
-
-.target-audience-content p {
-    margin-bottom: 20px;
-    font-size: 1.1rem;
-}
-
-.audience-list {
-    list-style: none;
-    padding: 0;
-    text-align: left;
-    margin: 30px 0;
-}
-
-.audience-list li {
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-    background: url('../images/check-icon.svg') no-repeat left center; /* Ícone de check - precisamos criar ou baixar */
-    padding-left: 30px; /* Espaço para o ícone */
-}
-
-/* --- SEÇÃO APRENDA (MÓDULOS) --- */
-.section-subtitle {
-    text-align: center;
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: -20px auto 40px;
-    color: #666;
-}
-
-.modulos-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    margin-top: 30px;
-}
-
-.modulo-card {
-    background-color: var(--white-color);
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.modulo-card h3 {
-    font-size: 1.6rem;
-    color: var(--primary-color);
-    margin-bottom: 20px;
-}
-
-.modulo-list li {
-    margin-bottom: 12px;
-    padding-left: 25px;
-    background: url('../images/check-icon.svg') no-repeat left 5px; /* Ícone de check */
-}
-
-.footer {
-    background-color: var(--dark-color);
-    color: var(--light-color);
-    text-align: center;
-    padding: 40px 0;
+    .hero-content {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
 }
