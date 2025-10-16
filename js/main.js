@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const navList = document.querySelector('.nav-list');
     const navLinks = document.querySelectorAll('.nav-list li a');
 
+    // Prevenir FOUC (Flash of Unstyled Content)
+    document.documentElement.style.visibility = 'visible';
+
     // Toggle menu mobile
     menuMobile?.addEventListener('click', () => {
         menuMobile.classList.toggle('active');
