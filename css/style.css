@@ -1,0 +1,200 @@
+/* --- RESET BÁSICO --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* --- VARIÁVEIS DE COR E ESTILOS GLOBAIS --- */
+:root {
+    --primary-color: #008080; /* Um tom de verde/azul (teal) - podemos ajustar */
+    --secondary-color: #f4a261; /* Um tom de laranja/dourado para detalhes */
+    --dark-color: #2f2f2f;
+    --light-color: #f8f8f8;
+    --white-color: #ffffff;
+    --text-color: #333;
+    --line-height: 1.6;
+}
+
+body {
+    line-height: var(--line-height);
+    color: var(--text-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+ul {
+    list-style: none;
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+}
+
+/* --- CLASSES UTILITÁRIAS --- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.section {
+    padding: 80px 0;
+}
+
+.section-light {
+    background-color: var(--light-color);
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #006666; /* Um tom mais escuro para o hover */
+}
+
+/* --- ESTILOS DOS COMPONENTES (HEADER, FOOTER, ETC) --- */
+.header {
+    background-color: var(--white-color);
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Adicionaremos mais estilos para nav, hero, sections, etc. aqui */
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.logo-img {
+    max-width: 180px; /* Ajuste o tamanho conforme necessário */
+    height: auto;
+}
+
+.nav-list {
+    display: flex;
+    gap: 25px; /* Espaçamento entre os itens do menu */
+}
+
+.nav-list a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.nav-list a:hover {
+    color: var(--primary-color);
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 80vh; /* Ocupa 80% da altura da tela */
+    color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 80vh; /* Ocupa 80% da altura da tela */
+    color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+/* --- SEÇÃO FORMAÇÃO --- */
+#formacao .container {
+    max-width: 800px; /* Limita a largura para melhor leitura */
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.formation-content p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.formation-content h3 {
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.features-list li {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.features-list strong {
+    color: var(--dark-color);
+}
+
+.footer {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    text-align: center;
+    padding: 40px 0;
+}
