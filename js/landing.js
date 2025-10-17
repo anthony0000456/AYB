@@ -58,20 +58,73 @@ function initScrollAnimation() {
 // Players de Vídeo
 function initVideoPlayers() {
     const videoButtons = document.querySelectorAll('.play-button');
-    
+    const overlay = document.querySelector('.depoimentos-overlay');
+    const modalContainer = overlay ? overlay.querySelector('.video-container') : null;
+    const closeBtn = overlay ? overlay.querySelector('.close-modal') : null;
+
+    function openVideoModal(videoId) {
+        if (!overlay || !modalContainer) return false;
+
+        // Evita autoplay agressivo em dispositivos móveis
+        const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768;
+        const autoplay = isMobile ? 0 : 1;
+
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0&autoplay=${autoplay}`;
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.width = '100%';
+        iframe.height = '100%';
+
+        // Limpa e insere iframe no modal
+        modalContainer.innerHTML = '';
+        modalContainer.appendChild(iframe);
+
+        overlay.classList.add('active');
+        // Evita scroll de fundo
+        document.body.style.overflow = 'hidden';
+        // foco acessível
+        if (closeBtn) closeBtn.focus();
+        return true;
+    }
+
+    function closeVideoModal() {
+        if (!overlay || !modalContainer) return;
+        overlay.classList.remove('active');
+        // Remove iframe para parar o vídeo
+        modalContainer.innerHTML = '';
+        document.body.style.overflow = '';
+    }
+
     videoButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             const videoId = this.dataset.videoId;
-            const videoContainer = this.closest('.video-wrapper');
-            
-            const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-            iframe.allowFullscreen = true;
-            
-            videoContainer.innerHTML = '';
-            videoContainer.appendChild(iframe);
+            // Tenta abrir no modal, se não existir faz o fallback in-place
+            const opened = openVideoModal(videoId);
+            if (!opened) {
+                const videoContainer = this.closest('.video-wrapper');
+                if (!videoContainer) return;
+                const iframe = document.createElement('iframe');
+                iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0&autoplay=1`;
+                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                iframe.setAttribute('allowfullscreen', '');
+                videoContainer.innerHTML = '';
+                videoContainer.appendChild(iframe);
+            }
         });
+    });
+
+    // Handlers de fechamento do modal
+    if (closeBtn) closeBtn.addEventListener('click', closeVideoModal);
+    if (overlay) overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeVideoModal();
+    });
+    // Fechar com ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeVideoModal();
+        }
     });
 }
 
@@ -89,15 +142,22 @@ function initTestimonialSlider() {
         slider.style.transform = `translateX(${offset}%)`;
     }
 
-    document.querySelector('.slider-next').addEventListener('click', () => {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateSlider();
-    });
+    const nextBtn = document.querySelector('.slider-next');
+    const prevBtn = document.querySelector('.slider-prev');
 
-    document.querySelector('.slider-prev').addEventListener('click', () => {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        updateSlider();
-    });
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        });
+    }
 
     // Auto-play
     setInterval(() => {
