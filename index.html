@@ -86,6 +86,7 @@
     <link rel="stylesheet" href="css/timer.css">
     <link rel="stylesheet" href="css/video.css">
     <link rel="stylesheet" href="css/lazy-loading.css">
+    <link rel="stylesheet" href="css/accessibility.css">
     
     <!-- Font Awesome (carregamento otimizado) -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
@@ -110,6 +111,7 @@
     </noscript>
 </head>
 <body>
+    <a href="#main" class="skip-to-main">Pular para o conteúdo principal</a>
     <header class="header">
         <div class="container">
             <nav class="nav">
@@ -154,7 +156,7 @@
         </div>
     </div>
 
-    <main>
+    <main id="main" tabindex="-1">
         <section class="hero">
             <div class="container">
                 <div class="hero-content">

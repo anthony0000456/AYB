@@ -1,43 +1,26 @@
+import { ScrollManager } from './modules/scroll-manager.js';
+import { MobileMenuManager } from './modules/mobile-menu.js';
+import { FAQManager } from './modules/faq-manager.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Elementos do DOM
     const header = document.querySelector('.header');
-    const menuMobile = document.querySelector('.menu-mobile');
-    const navList = document.querySelector('.nav-list');
-    const navLinks = document.querySelectorAll('.nav-list li a');
 
     // Prevenir FOUC (Flash of Unstyled Content)
     document.documentElement.style.visibility = 'visible';
 
-    // Toggle menu mobile
-    menuMobile?.addEventListener('click', () => {
-        menuMobile.classList.toggle('active');
-        navList.classList.toggle('active');
-        document.body.classList.toggle('menu-open');
-    });
+    // Inicializar gerenciadores
+    const scrollManager = new ScrollManager();
+    const mobileMenu = new MobileMenuManager();
+    const faqManager = new FAQManager();
 
-    // Fechar menu ao clicar em um link
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            menuMobile.classList.remove('active');
-            navList.classList.remove('active');
-            document.body.classList.remove('menu-open');
-        });
-    });
-
-    // Scroll suave
+    // Scroll suave com gerenciador
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                const headerOffset = 80;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
+                scrollManager.smoothScrollTo(target, 80);
             }
         });
     });

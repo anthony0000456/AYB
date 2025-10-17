@@ -1,0 +1,126 @@
+/* Accessibility Styles */
+
+/* Screen reader only class */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus styles */
+:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Focus visible only when using keyboard */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Skip to main content link */
+.skip-to-main {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px;
+    z-index: 100;
+    transition: top 0.3s;
+}
+
+.skip-to-main:focus {
+    top: 0;
+}
+
+/* Improved button focus states */
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+/* High contrast mode adjustments */
+@media (forced-colors: active) {
+    :root {
+        --primary-color: CanvasText;
+    }
+
+    button, 
+    a {
+        forced-color-adjust: none;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Mobile menu accessibility */
+.menu-mobile {
+    padding: 1rem;
+    margin: -1rem;
+}
+
+.menu-mobile:focus {
+    outline-offset: -2px;
+}
+
+/* FAQ accessibility */
+.faq-pergunta {
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+}
+
+.faq-pergunta:focus {
+    outline-offset: -2px;
+}
+
+.faq-resposta {
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.faq-resposta.active {
+    max-height: none;
+    opacity: 1;
+}
+
+/* Form field accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+/* Enhanced touch targets for mobile */
+@media (max-width: 768px) {
+    button,
+    .nav-list a,
+    .faq-pergunta {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px;
+    }
+}

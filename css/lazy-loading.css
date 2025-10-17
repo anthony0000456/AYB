@@ -2,6 +2,9 @@
 .lazy {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+    max-width: 100%; /* Prevent overflow */
+    height: auto; /* Maintain aspect ratio */
+    backface-visibility: hidden; /* Reduce paint */
 }
 
 .lazy.loading {
@@ -14,6 +17,8 @@
 
 .lazy.error {
     opacity: 0.3;
+    /* Fallback background when image fails to load */
+    background: #f1f1f1 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="%23999"/></svg>') center/32px no-repeat;
 }
 
 /* Placeholder styles */
@@ -21,6 +26,22 @@
     background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
     background-size: 200% 100%;
     animation: 1.5s shine linear infinite;
+    transform: translateZ(0); /* Force GPU acceleration */
+}
+
+/* Optimize animations for battery life */
+@media (prefers-reduced-motion: reduce) {
+    .lazy:not(.loaded):not(.error) {
+        animation: none;
+        background: #ececec;
+    }
+}
+
+/* Save battery on mobile */
+@media (max-width: 768px) {
+    .lazy:not(.loaded):not(.error) {
+        animation-duration: 2s; /* Slower animation on mobile */
+    }
 }
 
 @keyframes shine {
@@ -37,6 +58,12 @@
     animation: 1.5s shine linear infinite;
 }
 
+@media screen and (max-width: 768px) {
+    .video-thumb.lazy:not(.loaded):not(.error) {
+        min-height: 150px; /* Smaller height on mobile */
+    }
+}
+
 /* Profile images specific styles */
 .instrutora-image .lazy:not(.loaded):not(.error) {
     min-height: 300px;
@@ -44,6 +71,12 @@
     background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
     background-size: 200% 100%;
     animation: 1.5s shine linear infinite;
+}
+
+@media screen and (max-width: 768px) {
+    .instrutora-image .lazy:not(.loaded):not(.error) {
+        min-height: 200px; /* Smaller height on mobile */
+    }
 }
 
 /* Background images */
@@ -58,6 +91,16 @@
 /* Progressive loading effect */
 .lazy.loaded {
     animation: fadeIn 0.5s ease-in-out;
+    will-change: opacity, transform; /* Optimize animations */
+}
+
+/* Reduce motion if user prefers */
+@media (prefers-reduced-motion: reduce) {
+    .lazy.loaded {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
 }
 
 @keyframes fadeIn {
@@ -68,5 +111,12 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Battery-saving optimizations for mobile */
+@media (max-width: 768px) and (prefers-color-scheme: dark) {
+    .lazy:not(.loaded):not(.error) {
+        background: linear-gradient(110deg, #1a1a1a 8%, #2a2a2a 18%, #1a1a1a 33%);
     }
 }
