@@ -55,8 +55,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
-    <!-- Preload de fontes -->
+    <!-- Carregamento otimizado de fontes -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrFJA.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLEj6V1g.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLCz7V1g.woff2" crossorigin>
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     
     <!-- Preload de assets críticos -->
@@ -64,6 +68,9 @@
     <link rel="preload" as="image" href="images/hero-bg.jpg">
     <link rel="preload" as="style" href="css/main.css">
     <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Font loading script -->
+    <script src="js/fonts.js"></script>
     
     <!-- Theme Configuração -->
     <meta name="color-scheme" content="light dark">
@@ -76,14 +83,20 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/investimento.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/timer.css">
+    <link rel="stylesheet" href="css/video.css">
+    <link rel="stylesheet" href="css/lazy-loading.css">
     
-    <!-- Font Awesome (carregamento assíncrono) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+    <!-- Font Awesome (carregamento otimizado) -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          as="style" 
+          onload="this.onload=null;this.rel='stylesheet'"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
           crossorigin="anonymous" 
-          referrerpolicy="no-referrer"
-          media="print" 
-          onload="this.media='all'">
+          referrerpolicy="no-referrer">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -101,7 +114,7 @@
         <div class="container">
             <nav class="nav">
                 <a href="/" class="logo">
-                    <img src="images/cropped-ayurveda_logo_site.png" alt="Ayurveda Brasil" class="logo-img" width="180" height="60">
+                    <img data-src="images/cropped-ayurveda_logo_site.png" alt="Ayurveda Brasil" class="logo-img" width="180" height="60" fetchpriority="high">
                 </a>
                 <div class="menu-mobile">
                     <div class="line1"></div>
@@ -119,23 +132,23 @@
         </div>
     </header>
 
-    <div class="scarcity-timer">
-        <p>⚡ Oferta Especial - Preço Promocional Termina em:</p>
+    <div class="scarcity-timer" data-end-date="2025-10-31T23:59:59">
+        <p><i class="fas fa-bolt"></i> Oferta Especial - Preço Promocional Termina em:</p>
         <div class="timer-container">
-            <div class="timer-box">
-                <div id="timer-days" class="timer-number">00</div>
+            <div class="timer-box" aria-label="Dias restantes">
+                <div id="timer-days" class="timer-number" aria-live="polite">00</div>
                 <div class="timer-label">Dias</div>
             </div>
-            <div class="timer-box">
-                <div id="timer-hours" class="timer-number">00</div>
+            <div class="timer-box" aria-label="Horas restantes">
+                <div id="timer-hours" class="timer-number" aria-live="polite">00</div>
                 <div class="timer-label">Horas</div>
             </div>
-            <div class="timer-box">
-                <div id="timer-minutes" class="timer-number">00</div>
+            <div class="timer-box" aria-label="Minutos restantes">
+                <div id="timer-minutes" class="timer-number" aria-live="polite">00</div>
                 <div class="timer-label">Min</div>
             </div>
-            <div class="timer-box">
-                <div id="timer-seconds" class="timer-number">00</div>
+            <div class="timer-box" aria-label="Segundos restantes">
+                <div id="timer-seconds" class="timer-number" aria-live="polite">00</div>
                 <div class="timer-label">Seg</div>
             </div>
         </div>
@@ -273,7 +286,7 @@
                     </div>
                     <div class="sobre-imagem animate-on-scroll">
                         <div class="imagem-wrapper">
-                            <img src="images/ayurveda-sobre.jpg" alt="Ayurveda - Medicina tradicional indiana" loading="lazy">
+                            <img data-src="images/ayurveda-sobre.jpg" alt="Ayurveda - Medicina tradicional indiana" data-sizes="(max-width: 768px) 100vw, 50vw" class="lazy" loading="lazy">
                             <div class="decoracao-1"></div>
                             <div class="decoracao-2"></div>
                         </div>
@@ -485,7 +498,7 @@
                 <div class="instrutoras-grid">
                     <div class="instrutora-card animate-on-scroll">
                         <div class="instrutora-image">
-                            <img src="images/claudia-tanmatra.jpg" alt="Cláudia Tanmatra - Fundadora e Instrutora" loading="lazy">
+                            <img data-src="images/claudia-tanmatra.jpg" alt="Cláudia Tanmatra - Fundadora e Instrutora" data-sizes="(max-width: 768px) 100vw, 50vw" loading="lazy">
                             <div class="instrutora-social">
                                 <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                                 <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
@@ -514,7 +527,7 @@
 
                     <div class="instrutora-card animate-on-scroll">
                         <div class="instrutora-image">
-                            <img src="images/alihe-ribeiro.jpg" alt="Alihe Ribeiro - Instrutora e Terapeuta" loading="lazy">
+                            <img data-src="images/alihe-ribeiro.jpg" alt="Alihe Ribeiro - Instrutora e Terapeuta" data-sizes="(max-width: 768px) 100vw, 50vw" class="lazy" loading="lazy">
                             <div class="instrutora-social">
                                 <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                                 <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
@@ -560,7 +573,7 @@
                     <!-- Roberta Suria -->
                     <div class="depoimento-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <img src="https://img.youtube.com/vi/OWDcDiGGuIU/maxresdefault.jpg" alt="Depoimento - Roberta Suria" class="video-thumb" loading="lazy">
+                            <img data-src="https://img.youtube.com/vi/OWDcDiGGuIU/maxresdefault.jpg" alt="Depoimento - Roberta Suria" class="video-thumb lazy" loading="lazy">
                             <button class="play-button" data-video-id="OWDcDiGGuIU">
                                 <i class="fas fa-play"></i>
                             </button>
@@ -579,7 +592,7 @@
                     <!-- Satya Santineli -->
                     <div class="depoimento-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <img src="https://img.youtube.com/vi/9TCr2o4onZo/maxresdefault.jpg" alt="Depoimento - Satya Santineli" class="video-thumb" loading="lazy">
+                            <img data-src="https://img.youtube.com/vi/9TCr2o4onZo/maxresdefault.jpg" alt="Depoimento - Satya Santineli" class="video-thumb lazy" loading="lazy">
                             <button class="play-button" data-video-id="9TCr2o4onZo">
                                 <i class="fas fa-play"></i>
                             </button>
@@ -598,7 +611,7 @@
                     <!-- Livia Martins -->
                     <div class="depoimento-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <img src="https://img.youtube.com/vi/CseZoldmf3Q/maxresdefault.jpg" alt="Depoimento - Livia Martins" class="video-thumb" loading="lazy">
+                            <img data-src="https://img.youtube.com/vi/CseZoldmf3Q/maxresdefault.jpg" alt="Depoimento - Livia Martins" class="video-thumb lazy" loading="lazy">
                             <button class="play-button" data-video-id="CseZoldmf3Q">
                                 <i class="fas fa-play"></i>
                             </button>
@@ -617,7 +630,7 @@
                     <!-- Talita (shorts) -->
                     <div class="depoimento-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <img src="https://img.youtube.com/vi/clPDu6Rmvds/maxresdefault.jpg" alt="Depoimento - Talita (Shorts)" class="video-thumb" loading="lazy">
+                            <img data-src="https://img.youtube.com/vi/clPDu6Rmvds/maxresdefault.jpg" alt="Depoimento - Talita (Shorts)" class="video-thumb lazy" loading="lazy">
                             <button class="play-button" data-video-id="clPDu6Rmvds">
                                 <i class="fas fa-play"></i>
                             </button>
@@ -636,7 +649,7 @@
                     <!-- Valdinei -->
                     <div class="depoimento-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <img src="https://img.youtube.com/vi/0Wj6o8Ij0LY/maxresdefault.jpg" alt="Depoimento - Valdinei" class="video-thumb" loading="lazy">
+                            <img data-src="https://img.youtube.com/vi/0Wj6o8Ij0LY/maxresdefault.jpg" alt="Depoimento - Valdinei" class="video-thumb lazy" loading="lazy">
                             <button class="play-button" data-video-id="0Wj6o8Ij0LY">
                                 <i class="fas fa-play"></i>
                             </button>
@@ -655,7 +668,7 @@
                     <!-- Cibele Kairalla (shorts) -->
                     <div class="depoimento-card animate-on-scroll">
                         <div class="video-wrapper">
-                            <img src="https://img.youtube.com/vi/q9oMbO_HQnE/maxresdefault.jpg" alt="Depoimento - Cibele Kairalla (Shorts)" class="video-thumb" loading="lazy">
+                            <img data-src="https://img.youtube.com/vi/q9oMbO_HQnE/maxresdefault.jpg" alt="Depoimento - Cibele Kairalla (Shorts)" class="video-thumb lazy" loading="lazy">
                             <button class="play-button" data-video-id="q9oMbO_HQnE">
                                 <i class="fas fa-play"></i>
                             </button>
@@ -672,12 +685,12 @@
                     </div>
                 </div>
 
-                <div class="depoimentos-overlay">
-                    <div class="video-modal">
-                        <button class="close-modal">
-                            <i class="fas fa-times"></i>
+                <div class="depoimentos-overlay" role="dialog" aria-modal="true" aria-label="Player de depoimentos">
+                    <div class="video-modal" role="document">
+                        <button class="close-modal" aria-label="Fechar vídeo">
+                            <i class="fas fa-times" aria-hidden="true"></i>
                         </button>
-                        <div class="video-container">
+                        <div class="video-container" aria-live="polite" aria-label="Conteúdo de vídeo">
                             <!-- O iframe do vídeo será inserido aqui via JavaScript -->
                         </div>
                     </div>
@@ -992,7 +1005,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
-                    <img src="images/cropped-ayurveda_logo_site.png" alt="Ayurveda Brasil" class="footer-logo" width="150" height="50">
+                    <img data-src="images/cropped-ayurveda_logo_site.png" alt="Ayurveda Brasil" class="footer-logo lazy" width="150" height="50" loading="lazy">
                     <p class="footer-desc">Centro de Formação em Terapias Ayurvédicas com mais de 30 anos de tradição e certificação internacional.</p>
                 </div>
                 <div class="footer-col">
@@ -1040,7 +1053,7 @@
 
     <!-- Notificações de Compras Recentes -->
     <div class="recent-sales-notification" id="recent-sales">
-        <img src="images/avatar-placeholder.jpg" alt="Comprador" class="buyer-avatar">
+        <img data-src="images/avatar-placeholder.jpg" alt="Comprador" class="buyer-avatar lazy" loading="lazy">
         <div class="notification-content">
             <p class="buyer-name">Maria S.</p>
             <p class="purchase-info">acabou de se inscrever no curso!</p>
@@ -1057,11 +1070,18 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <script src="js/theme.js"></script>
-    <script src="js/landing.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/modules.js"></script>
-    <script src="js/depoimentos.js"></script>
-    <script src="js/investimento.js"></script>
+    <!-- Scripts críticos (carregamento prioritário) -->
+    <script src="js/fonts.js"></script>
+    <script src="js/theme.js" defer></script>
+    
+    <!-- Scripts de otimização -->
+    <script src="js/image-optimization.js" defer></script>
+
+    <!-- Scripts não críticos (carregamento otimizado) -->
+    <script src="js/landing.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/modules.js" defer></script>
+    <script src="js/depoimentos.js" defer></script>
+    <script src="js/investimento.js" defer></script>
 </body>
 </html>

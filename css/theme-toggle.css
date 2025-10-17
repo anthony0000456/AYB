@@ -1,48 +1,84 @@
-/* Botão de Tema */
+/* Theme Toggle Button */
 .theme-toggle {
     position: fixed;
     top: 20px;
     right: 20px;
     width: 48px;
     height: 48px;
+    border: none;
     border-radius: 50%;
     background: var(--bg-white);
-    border: 2px solid var(--primary);
-    color: var(--text-dark);
     cursor: pointer;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--shadow-md);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .theme-toggle:hover {
-    transform: rotate(180deg);
-    background: var(--primary);
+    background: var(--bg-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.theme-toggle:active {
+    transform: translateY(0);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.theme-toggle i {
+    font-size: 1.5rem;
+    position: absolute;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+}
+
+/* Light mode icon */
+.theme-toggle .light-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+    color: var(--primary);
+}
+
+/* Dark mode icon */
+.theme-toggle .dark-icon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+    color: var(--text-dark);
+}
+
+/* Icon states based on theme */
+[data-theme="dark"] .theme-toggle {
+    background: var(--bg-medium);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background: var(--bg-light);
+}
+
+[data-theme="dark"] .theme-toggle .light-icon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
     color: var(--text-white);
 }
 
-.theme-toggle .light-icon,
-.theme-toggle .dark-icon {
-    position: absolute;
-    transition: var(--transition);
-}
-
-.theme-toggle .light-icon {
+[data-theme="dark"] .theme-toggle .dark-icon {
     opacity: 0;
-    transform: scale(0.5);
+    transform: rotate(90deg) scale(0);
 }
 
-.dark-theme .theme-toggle .light-icon {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.dark-theme .theme-toggle .dark-icon {
-    opacity: 0;
-    transform: scale(0.5);
+/* Hover effects */
+.theme-toggle:hover .light-icon,
+.theme-toggle:hover .dark-icon {
+    color: var(--primary);
 }
 
 /* Responsividade do Botão de Tema */
@@ -51,50 +87,53 @@
         top: auto;
         bottom: 20px;
         right: 20px;
+        width: 44px;
+        height: 44px;
+    }
+
+    .theme-toggle i {
+        font-size: 1.25rem;
     }
 }
 
-/* Animações Específicas para Modo Escuro */
-.dark-theme .card {
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.dark-theme .section-light {
-    background: var(--bg-light);
-}
-
-/* Melhorias de Contraste para Modo Escuro */
-.dark-theme .text-light {
-    color: var(--text-light);
-}
-
-.dark-theme .btn-secondary {
-    border-color: var(--text-white);
-    color: var(--text-white);
-}
-
-.dark-theme .btn-secondary:hover {
-    background: var(--text-white);
-    color: var(--bg-dark);
-}
-
-/* Transições Suaves entre Temas */
-.theme-transition * {
-    transition: background-color var(--transition), 
-                color var(--transition), 
-                border-color var(--transition), 
-                box-shadow var(--transition);
-}
-
-/* Melhorias de Acessibilidade */
-@media (prefers-reduced-motion: reduce) {
+/* High contrast mode adjustments */
+@media (forced-colors: active) {
     .theme-toggle {
+        border: 1px solid currentColor;
+    }
+    
+    .theme-toggle i {
+        forced-color-adjust: none;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .theme-toggle,
+    .theme-toggle i {
+        transition: none !important;
         transform: none !important;
     }
 }
 
-/* Ajustes de Performance */
-.theme-toggle {
-    will-change: transform, background-color;
+/* Card adjustments based on theme */
+[data-theme="dark"] .card {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Section adjustments */
+[data-theme="dark"] .section-light {
+    background: var(--bg-light);
+}
+
+/* Button adjustments */
+[data-theme="dark"] .btn-secondary {
+    border-color: var(--text-white);
+    color: var(--text-white);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: var(--text-white);
+    color: var(--bg-dark);
 }

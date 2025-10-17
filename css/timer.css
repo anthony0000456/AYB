@@ -1,0 +1,150 @@
+/* Timer Styles */
+.scarcity-timer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: rgba(var(--primary-rgb), 0.95);
+    color: var(--white);
+    text-align: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    backdrop-filter: blur(8px);
+    transition: background-color var(--transition);
+}
+
+.timer-container {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xs);
+}
+
+.timer-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    min-width: 60px;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition);
+}
+
+.timer-box:hover {
+    transform: scale(1.05);
+}
+
+.timer-number {
+    font-size: var(--h4);
+    font-weight: 700;
+    line-height: 1;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.timer-label {
+    font-size: var(--text-small);
+    opacity: 0.8;
+}
+
+/* Estados de urgência do timer */
+.scarcity-timer.urgent {
+    background-color: rgba(244, 67, 54, 0.95);
+    animation: pulseBackground 2s infinite;
+}
+
+.scarcity-timer.warning {
+    background-color: rgba(255, 193, 7, 0.95);
+}
+
+/* Animação de atualização dos números */
+.timer-update {
+    animation: numberUpdate 0.3s ease-out;
+}
+
+/* Timer encerrado */
+.timer-ended-state {
+    background-color: rgba(var(--secondary-rgb), 0.95);
+}
+
+.timer-ended {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+}
+
+.timer-ended-message {
+    font-size: var(--h4);
+    font-weight: 600;
+    margin: 0;
+}
+
+.timer-ended .cta-button {
+    background-color: var(--white);
+    color: var(--secondary);
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--text-base);
+    border-radius: var(--radius-sm);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.timer-ended .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+@keyframes pulseBackground {
+    0%, 100% {
+        background-color: rgba(244, 67, 54, 0.95);
+    }
+    50% {
+        background-color: rgba(244, 67, 54, 0.8);
+    }
+}
+
+@keyframes numberUpdate {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .timer-container {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    
+    .timer-box {
+        min-width: 50px;
+        flex: 0 0 calc(25% - var(--spacing-sm));
+    }
+    
+    .timer-number {
+        font-size: calc(var(--h4) * 0.8);
+    }
+    
+    .timer-label {
+        font-size: calc(var(--text-small) * 0.9);
+    }
+    
+    .timer-ended-message {
+        font-size: var(--text-base);
+    }
+}
+
+@media (max-width: 480px) {
+    .timer-box {
+        flex: 0 0 calc(50% - var(--spacing-sm));
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .timer-container {
+        margin-top: 0;
+    }
+}

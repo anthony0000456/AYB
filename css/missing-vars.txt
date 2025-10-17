@@ -1,0 +1,20 @@
+Variables used in CSS but NOT defined in css/theme.css (generated):
+
+From scanning css/style.css and css/main.css against css/theme.css definitions.
+
+Used but missing (candidates for safe aliases):
+- --white (defined as alias)
+- --dark (defined as alias)
+- --light-gray (defined as alias)
+- --primary-color (defined as alias)
+- --white-color (defined as alias)
+- --light-color (defined as alias)
+- --dark-color (defined as alias)
+- --text-white (defined as alias)
+- --gray (defined as alias)
+- --text (defined as alias)
+- --shadow (defined as alias)
+
+Note: The current `css/theme.css` already defines aliases for the common names used elsewhere. No additional missing variables were found that are not already aliased.
+
+If you want, I can automatically add more aliases or canonicalize variable names across the stylesheets.

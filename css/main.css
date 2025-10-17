@@ -1,11 +1,22 @@
 /* --- RESET E CONFIGURAÇÕES BÁSICAS --- */
 /* Prevenir FOUC */
-html {
-    visibility: hidden;
+:root {
+    --initial-display: block;
 }
 
+html {
+    display: var(--initial-display);
+}
+
+/* Força renderização crítica primeiro */
+html:not(.critical-loaded) * {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Mostra conteúdo quando fontes carregarem */
 html.fonts-loaded {
-    visibility: visible;
+    --initial-display: block;
 }
 
 /* Reset e configurações base */
@@ -773,12 +784,9 @@ p {
 
 /* --- RESPONSIVO --- */
 @media (max-width: 768px) {
-    :root {
-        --h1: 3rem;
-        --h2: 2.5rem;
-        --h3: 1.75rem;
-        --container-padding: 1rem;
-    }
+    /* Responsive variable overrides centralized in css/theme.css.
+       If responsive tokens are required, add them as aliases in css/theme.css
+       inside a matching media query to avoid duplicate :root definitions. */
 
     .menu-mobile {
         display: block;

@@ -1,0 +1,72 @@
+/* Lazy Loading Styles */
+.lazy {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.lazy.loading {
+    opacity: 0.5;
+}
+
+.lazy.loaded {
+    opacity: 1;
+}
+
+.lazy.error {
+    opacity: 0.3;
+}
+
+/* Placeholder styles */
+.lazy:not(.loaded):not(.error) {
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+    to {
+        background-position-x: -200%;
+    }
+}
+
+/* Video thumbnails specific styles */
+.video-thumb.lazy:not(.loaded):not(.error) {
+    min-height: 200px;
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+}
+
+/* Profile images specific styles */
+.instrutora-image .lazy:not(.loaded):not(.error) {
+    min-height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+}
+
+/* Background images */
+[data-background].loading {
+    background-color: #ececec;
+}
+
+[data-background].background-loaded {
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Progressive loading effect */
+.lazy.loaded {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

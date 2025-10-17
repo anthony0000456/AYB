@@ -61,6 +61,15 @@
     --gray: #666666;
     --text: var(--text-medium);
     --text-dark: var(--text-dark);
+    --shadow: var(--shadow-md);
+
+     /* Aliases adicionais detectados em style.css e main.css */
+     --primary-color: var(--primary);
+     --white-color: var(--bg-white);
+     --light-color: var(--bg-light);
+     --dark-color: var(--text-dark);
+     --text-white: var(--text-white);
+     --dark-color: var(--text-dark);
 
     /* Tipografia (valores usados em main.css) */
     --h1: 4.5rem;
@@ -75,31 +84,93 @@
     --container-width: 1200px;
 }
 
+/* Sistema de Temas */
+:root,
+:root[data-theme="light"] {
+    /* Cores Principais - Tema Claro */
+    --primary: #93765A;
+    --primary-light: #B49475;
+    --primary-dark: #725A44;
+    
+    /* Tons de Fundo */
+    --bg-white: #FFFFFF;
+    --bg-light: #F8F6F3;
+    --bg-medium: #EFEAE5;
+    --bg-dark: #2C241D;
+    
+    /* Tons de Texto */
+    --text-dark: #2C241D;
+    --text-medium: #594D44;
+    --text-light: #8C8178;
+    --text-white: #FFFFFF;
+    
+    /* Sombras */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.14);
+}
+
 /* Tema Escuro */
+:root[data-theme="dark"] {
+    /* Cores Principais - Tema Escuro */
+    --primary: #B49475;
+    --primary-light: #D4B08C;
+    --primary-dark: #93765A;
+    
+    /* Tons de Fundo */
+    --bg-white: #1A1614;
+    --bg-light: #241E1B;
+    --bg-medium: #2C241D;
+    --bg-dark: #342A22;
+    
+    /* Tons de Texto */
+    --text-dark: #EFEAE5;
+    --text-medium: #D4CAC1;
+    --text-light: #B0A69D;
+    --text-white: #FFFFFF;
+    
+    /* Sombras Adaptadas */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Auto Dark Mode */
 @media (prefers-color-scheme: dark) {
-    :root {
-        /* Cores Principais - Tema Escuro */
+    :root:not([data-theme]) {
+        color-scheme: dark;
+    }
+    
+    :root:not([data-theme]) {
+        /* Herda todas as variáveis do tema escuro */
         --primary: #B49475;
         --primary-light: #D4B08C;
         --primary-dark: #93765A;
-        
-        /* Tons de Fundo */
         --bg-white: #1A1614;
         --bg-light: #241E1B;
         --bg-medium: #2C241D;
         --bg-dark: #342A22;
-        
-        /* Tons de Texto */
         --text-dark: #EFEAE5;
         --text-medium: #D4CAC1;
         --text-light: #B0A69D;
         --text-white: #FFFFFF;
-        
-        /* Sombras Adaptadas */
         --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
         --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.35);
         --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.4);
     }
+}
+
+/* Transições suaves entre temas */
+*, *::before, *::after {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+/* Prevenir transições durante carregamento inicial */
+.no-transitions * {
+    transition: none !important;
 }
 
 /* Suporte para Preferência de Redução de Movimento */
