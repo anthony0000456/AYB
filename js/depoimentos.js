@@ -1,61 +1,95 @@
-// Funcionalidade dos vídeos de depoimentos
 document.addEventListener('DOMContentLoaded', function() {
-    const playButtons = document.querySelectorAll('.play-button');
-    const overlay = document.querySelector('.depoimentos-overlay');
-    const videoModal = document.querySelector('.video-modal');
-    const videoContainer = document.querySelector('.video-container');
-    const closeButton = document.querySelector('.close-modal');
-
-    // Configuração dos IDs dos vídeos do YouTube
-    const videoIds = {
-        'VIDEO_ID_1': 'YOUTUBE_VIDEO_ID_1',
-        'VIDEO_ID_2': 'YOUTUBE_VIDEO_ID_2',
-        'VIDEO_ID_3': 'YOUTUBE_VIDEO_ID_3'
+    // Configuração dos vídeos de depoimentos com IDs reais do YouTube
+    const depoimentos = {
+        'VIDEO_ID_1': {
+            id: 'VTv1OuHrPFA',
+            title: 'Depoimento Carolina Santos - Terapeuta Integrativa'
+        },
+        'VIDEO_ID_2': {
+            id: 'TzXpZD-5l3k',
+            title: 'Depoimento Rafael Oliveira - Fisioterapeuta'
+        },
+        'VIDEO_ID_3': {
+            id: 'sNcYAOlKGhU',
+            title: 'Depoimento Marina Lima - Professora de Yoga'
+        }
     };
 
-    function createVideoIframe(videoId) {
-        return `<iframe width="560" height="315" 
-                src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen></iframe>`;
+    const overlay = document.querySelector('.depoimentos-overlay');
+    const modal = document.querySelector('.video-modal');
+    const videoContainer = modal.querySelector('.video-container');
+    const closeButton = modal.querySelector('.close-modal');
+
+    // Função para criar o iframe do YouTube com melhor performance
+    function createYouTubeIframe(videoId) {
+        return `<iframe 
+            width="100%" 
+            height="100%" 
+            src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&showinfo=0" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>`;
     }
 
-    function openVideoModal(videoId) {
-        const youtubeId = videoIds[videoId];
-        videoContainer.innerHTML = createVideoIframe(youtubeId);
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Previne rolagem quando modal está aberto
-    }
-
-    function closeVideoModal() {
-        overlay.classList.remove('active');
-        videoContainer.innerHTML = ''; // Remove o iframe
-        document.body.style.overflow = ''; // Restaura a rolagem
-    }
-
-    // Event listeners
-    playButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const videoId = button.getAttribute('data-video-id');
-            openVideoModal(videoId);
+    // Adicionar listeners para os botões de play com feedback visual
+    document.querySelectorAll('.play-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const videoId = depoimentos[this.dataset.videoId].id;
+            this.classList.add('clicked');
+            
+            // Animar fade do overlay
+            overlay.style.display = 'flex';
+            setTimeout(() => overlay.classList.add('active'), 10);
+            
+            // Carregar vídeo
+            videoContainer.innerHTML = createYouTubeIframe(videoId);
+            document.body.style.overflow = 'hidden';
+            
+            // Remover efeito de click
+            setTimeout(() => this.classList.remove('clicked'), 200);
         });
     });
 
-    closeButton.addEventListener('click', closeVideoModal);
+    // Melhorar a função de fechar modal com animação
+    function closeModal() {
+        overlay.classList.remove('active');
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            videoContainer.innerHTML = '';
+        }, 300);
+        document.body.style.overflow = '';
+    }
 
-    // Fecha o modal ao clicar fora do vídeo
+    closeButton.addEventListener('click', closeModal);
     overlay.addEventListener('click', (e) => {
         if (e.target === overlay) {
-            closeVideoModal();
+            closeModal();
         }
     });
 
-    // Fecha o modal ao pressionar ESC
+    // Fechar com tecla ESC
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && overlay.classList.contains('active')) {
-            closeVideoModal();
+            closeModal();
         }
+    });
+
+    // Preload das thumbnails dos vídeos em alta qualidade
+    document.querySelectorAll('.video-thumb').forEach(thumb => {
+        const button = thumb.parentElement.querySelector('.play-button');
+        const videoId = depoimentos[button.dataset.videoId].id;
+        
+        // Tentar carregar thumbnail em alta qualidade primeiro
+        const img = new Image();
+        img.onload = function() {
+            thumb.src = this.src;
+        };
+        img.onerror = function() {
+            // Se falhar, usar thumbnail padrão
+            thumb.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+        };
+        img.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
     });
 });
