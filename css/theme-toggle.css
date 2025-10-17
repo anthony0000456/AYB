@@ -1,0 +1,100 @@
+/* Botão de Tema */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-white);
+    border: 2px solid var(--primary);
+    color: var(--text-dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:hover {
+    transform: rotate(180deg);
+    background: var(--primary);
+    color: var(--text-white);
+}
+
+.theme-toggle .light-icon,
+.theme-toggle .dark-icon {
+    position: absolute;
+    transition: var(--transition);
+}
+
+.theme-toggle .light-icon {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.dark-theme .theme-toggle .light-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.dark-theme .theme-toggle .dark-icon {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* Responsividade do Botão de Tema */
+@media (max-width: 768px) {
+    .theme-toggle {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* Animações Específicas para Modo Escuro */
+.dark-theme .card {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.dark-theme .section-light {
+    background: var(--bg-light);
+}
+
+/* Melhorias de Contraste para Modo Escuro */
+.dark-theme .text-light {
+    color: var(--text-light);
+}
+
+.dark-theme .btn-secondary {
+    border-color: var(--text-white);
+    color: var(--text-white);
+}
+
+.dark-theme .btn-secondary:hover {
+    background: var(--text-white);
+    color: var(--bg-dark);
+}
+
+/* Transições Suaves entre Temas */
+.theme-transition * {
+    transition: background-color var(--transition), 
+                color var(--transition), 
+                border-color var(--transition), 
+                box-shadow var(--transition);
+}
+
+/* Melhorias de Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .theme-toggle {
+        transform: none !important;
+    }
+}
+
+/* Ajustes de Performance */
+.theme-toggle {
+    will-change: transform, background-color;
+}
